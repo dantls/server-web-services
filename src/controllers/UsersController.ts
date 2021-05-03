@@ -9,7 +9,7 @@ class UsersController {
       password,  
     } = request.body;
     
-    console.log(request.user)
+    // console.log(request.user)
 
     const usersService = new UsersService();
 

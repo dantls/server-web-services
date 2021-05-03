@@ -4,7 +4,7 @@ export class CreatePoint1620008643582 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({ 
-                name: 'point',
+                name: 'points',
                 columns: [
                     { 
                         name: 'id',
@@ -14,6 +14,7 @@ export class CreatePoint1620008643582 implements MigrationInterface {
                     { 
                         name: 'image',
                         type: "varchar",
+                        isNullable: true,
                     },
                     { 
                         name: 'name',
@@ -53,17 +54,31 @@ export class CreatePoint1620008643582 implements MigrationInterface {
                         default: "now()",
                     },
                     {
+                        name: "user_id",
+                        type: "uuid",
+                    },
+                    {
                         name: "created_at",
                         type: "timestamp",
                         default: "now()",
                     },
-                ]
+                ],
+                foreignKeys: [
+                    {
+                      name: "FKUser",
+                      referencedTableName: "users",
+                      referencedColumnNames: ["id"],
+                      columnNames: ["user_id"],
+                      onDelete: "SET NULL",
+                      onUpdate: "SET NULL",
+                    },
+                ],
             })
         )
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable("point");
+        await queryRunner.dropTable("points");
     }
 
 }
