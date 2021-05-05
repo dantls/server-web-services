@@ -1,5 +1,6 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { v4 as uuid } from 'uuid'
+import { PointsItems } from "./PointsItems";
 import { User } from "./User";
 
 
@@ -45,6 +46,11 @@ class Point {
 
   @Column()
   user_id: string;
+
+
+  @OneToMany(()=> PointsItems, point_items => point_items.point)
+  point_items: PointsItems[];
+
 
   @UpdateDateColumn()
   updated_at: Date;
