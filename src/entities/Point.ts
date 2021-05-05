@@ -48,8 +48,11 @@ class Point {
   user_id: string;
 
 
-  @OneToMany(()=> PointsItems, point_items => point_items.point)
-  point_items: PointsItems[];
+  @OneToMany(()=> PointsItems, point_items => point_items.point, {
+    cascade:true,
+    eager: true,
+  })
+  points_items: PointsItems[];
 
 
   @UpdateDateColumn()

@@ -14,7 +14,9 @@ class PointsController {
       uf,
       city,
       latitude,
-      longitude
+      longitude,
+      points_items
+
     } = request.body;
     
     const pointsService = new PointsService();
@@ -31,7 +33,8 @@ class PointsController {
         city,
         latitude,
         user_id,
-        longitude
+        longitude,
+        points_items
        });
 
       return response.json(point);

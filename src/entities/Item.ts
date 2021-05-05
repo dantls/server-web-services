@@ -19,7 +19,7 @@ class Item {
     eager: true,
     cascade: true,
   })
-  point_items: PointsItems[];
+  points_items: PointsItems[];
 
 
   @UpdateDateColumn()

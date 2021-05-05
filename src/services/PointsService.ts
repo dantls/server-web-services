@@ -1,3 +1,4 @@
+import { Item } from "../entities/Item";
 import { getCustomRepository, Repository } from "typeorm";
 import { Point } from "../entities/Point";
 import { PointsRepository } from "../repositories/PointsRepository";
@@ -13,6 +14,7 @@ interface IPointsCreateDTO{
   latitude: number;
   longitude: number;
   user_id: string;
+  points_items: Item[]
 }
 
 class PointsService {
@@ -32,7 +34,8 @@ class PointsService {
     city,
     latitude,
     longitude,
-    user_id
+    user_id,
+    points_items
   }: IPointsCreateDTO){
 
     const pointAlreadyExists = await this.pointsRepository.findOne({
@@ -53,7 +56,8 @@ class PointsService {
       city,
       latitude,
       longitude,
-      user_id
+      user_id,
+      points_items
     });
     
     await this.pointsRepository.save(point);

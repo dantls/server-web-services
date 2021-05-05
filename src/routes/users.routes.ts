@@ -11,7 +11,7 @@ const usersController = new UsersController();
 // usersRouter.use(ensureAuthenticated)
 //usersRouter.post("/", ensureAuthenticated, usersController.create )
 
-usersRouter.post("/", ensureAuthenticated,usersController.create )
+usersRouter.post("/",usersController.create )
 
 
 export default usersRouter
