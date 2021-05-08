@@ -1,14 +1,14 @@
 import {Router} from "express";
 
-import ensureAuthenticated from "../middlewares/ensureAuthenticated";
+// import ensureAuthenticated from "../middlewares/ensureAuthenticated";
 
-import PointsController from "../controllers/PointsController";
+import ServicesController from "../controllers/ServicesController";
 
 const PointsRouter = Router();
 
-const pointsController = new PointsController();
+const pointsController = new ServicesController();
 
-PointsRouter.post("/", ensureAuthenticated, pointsController.create )
+PointsRouter.post("/", pointsController.create )
 
 export default PointsRouter
 

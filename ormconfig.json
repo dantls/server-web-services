@@ -4,7 +4,7 @@
   "port": 5432,
   "username":"postgres",
   "password":"master",
-  "database": "labweb",
+  "database": "adar",
   "entities": [
     "./src/entities/*.ts"
   ],
