@@ -1,9 +1,9 @@
 import {
   Column,
-  CreateDateColumn,
+  // CreateDateColumn,
   Entity,
   PrimaryColumn,
-  UpdateDateColumn 
+  // UpdateDateColumn 
 } from 'typeorm';
 
 import {v4 as uuid} from 'uuid';
@@ -22,11 +22,11 @@ class User {
   @Column()
   password: string;
 
-  @UpdateDateColumn()
-  updated_at: Date;
+  // @UpdateDateColumn()
+  // updated_at: Date;
 
-  @CreateDateColumn()
-  created_at: Date;
+  // @CreateDateColumn()
+  // created_at: Date;
 
 
   constructor(){

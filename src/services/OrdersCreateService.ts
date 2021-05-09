@@ -5,7 +5,6 @@ import { Situation } from "entities/Situation";
 import { Order } from "entities/Order";
 
 interface IOrdersCreateDTO{
-  id_situation: string;
   description: string;
 }
 
@@ -19,7 +18,6 @@ class OrdersCreateService {
   }
 
   async create({
-    id_situation,
     description,
    }: IOrdersCreateDTO){
 
@@ -32,19 +30,17 @@ class OrdersCreateService {
     if(orderAlreadyExists){
       return orderAlreadyExists
     }
-    const situation = await this.situationsRepository.findOne({
+    const orderSituation = await this.situationsRepository.findOne({
       where: {
-        id:id_situation
+        description: 'Identificado'
       }
     })
     
     const order = this.ordersRepository.create({
       description,  
-      situation,
+      situation: orderSituation,
     });
 
-    console.log(order)
-    
     await this.ordersRepository.save(order);
 
     return order;

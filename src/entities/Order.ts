@@ -1,5 +1,6 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { v4 as uuid } from 'uuid'
+import { Service } from "./Service";
 import { Situation } from "./Situation";
 
 
@@ -12,12 +13,24 @@ class Order {
   @Column()
   description: string;
 
+  constructor(){
+    if(!this.id){
+      this.id = uuid();
+    }
+  }
+
   @JoinColumn({name: "id_situation"})
   @ManyToOne(()=> Situation)
   situation: Situation;
 
   @Column()
   id_situation: string;
+
+  // @ManyToOne(()=> Service)
+  // service?: Service;
+
+  // @Column()
+  // id_service?: string;
 
   // @UpdateDateColumn()
   // updated_at: Date;
@@ -26,11 +39,7 @@ class Order {
   // @CreateDateColumn()
   // created_at: Date;
 
-  constructor(){
-    if(!this.id){
-      this.id = uuid();
-    }
-  }
+ 
 }
 
 export {Order}

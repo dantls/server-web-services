@@ -3,13 +3,11 @@ import ServicesService from "../services/ServicesCreateService";
 
 class ServicesController {
   async create(request: Request,response: Response): Promise<Response> {
-    const user_id = request.user.id;
+    // const user_id = request.user.id;
 
     const {
-      status,
       order,
       address,
-      initial_date
     } = request.body;
     
     const servicesService = new ServicesService();
@@ -17,10 +15,8 @@ class ServicesController {
     try {
 
       const service = await servicesService.create({
-        status,
         order,
         address,
-        initial_date
        });
 
       return response.json(service);

@@ -6,7 +6,6 @@ class OrdersController {
     // const user_id = request.user.id;
 
     const {
-      id_situation,
       description,
     } = request.body;
     
@@ -15,7 +14,6 @@ class OrdersController {
     try {
 
       const order = await ordersCreateService.create({
-        id_situation,
         description,
        });
 

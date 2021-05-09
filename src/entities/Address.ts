@@ -12,18 +12,18 @@ class Address {
   @Column()
   description: string;
 
-  @JoinColumn({name: "id_status"})
+  @JoinColumn({name: "id_situation"})
   @ManyToOne(()=> Situation)
   situation: Situation;
 
   @Column()
   id_situation: string;
 
-  @UpdateDateColumn()
-  updated_at: Date;
+  // @UpdateDateColumn()
+  // updated_at: Date;
 
-  @CreateDateColumn()
-  created_at: Date;
+  // @CreateDateColumn()
+  // created_at: Date;
 
   constructor(){
     if(!this.id){
