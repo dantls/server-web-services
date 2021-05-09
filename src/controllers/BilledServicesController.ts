@@ -1,22 +1,21 @@
 import { Response ,Request} from "express";
-import ServicesService from "../services/ServicesCreateService";
+import BilledServicesService from "../services/BilledServicesService";
 
-class ServicesController {
+class BilledServicesController {
   async create(request: Request,response: Response): Promise<Response> {
     // const user_id = request.user.id;
 
     const {
-      order,
-      address,
+      description,
     } = request.body;
+
     
-    const servicesService = new ServicesService();
+    const billedServicesService = new BilledServicesService();
 
     try {
 
-      const service = await servicesService.create({
-        order,
-        address
+      const service = await billedServicesService.execute({
+        order: description
        });
 
       return response.json(service);
@@ -26,10 +25,10 @@ class ServicesController {
     }
     
   }
- 
+
 }
 
-export default ServicesController ;
+export default BilledServicesController ;
 
 
 
