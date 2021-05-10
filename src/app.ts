@@ -11,10 +11,10 @@ import cors from 'cors';
 import routes from "./routes";
 
 const app = express();
+app.use(cors());
 
 const http = createServer(app); //Separando o protocolo http do express
 
-app.use(cors());
 app.use(express.json());
 
 app.use(routes);

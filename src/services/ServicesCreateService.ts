@@ -44,7 +44,7 @@ class ServicesCreateService {
 
     const serviceSituation = await this.situationsRepository.findOne({
       where: {
-        description: 'Identificado'
+        description: 'Iniciado'
       }
     })
 
