@@ -15,9 +15,33 @@ class ServicesCreateService {
         final_date: IsNull()
       },
       relations: ["order","address","situation"] 
-    })      
+    }) 
     
-    return services;
+    const formmatedLists = services.reduce((acc,service) => {
+      if(!(acc.find(item => item.title === service.address.description )))
+        acc.push({
+          title: service.address.description,
+          cards: [{
+            id: service.id,
+            content: service.order.description,
+            label: 'green'
+          }]
+        })   
+      else {
+        const obj = acc.find(item => item.title === service.address.description)
+        obj['cards'].push({
+          id: service.id,
+          content: service.order.description,
+          label: 'green'
+        })
+
+      }  
+      return acc
+         
+    },[])
+    
+      
+    return formmatedLists;
 
   }
 
