@@ -1,8 +1,7 @@
-import { Column,  Entity, PrimaryColumn } from "typeorm";
+import { Column,  Entity, PrimaryColumn ,UpdateDateColumn,CreateDateColumn} from "typeorm";
 import { v4 as uuid } from 'uuid'
 
-
-@Entity("situation")
+@Entity("situations")
 class Situation {
 
   @PrimaryColumn()
@@ -11,11 +10,11 @@ class Situation {
   @Column()
   description: string;
 
-  // @UpdateDateColumn()
-  // updated_at: Date;
+  @UpdateDateColumn()
+  updated_at: Date;
 
-  // @CreateDateColumn()
-  // created_at: Date;
+  @CreateDateColumn()
+  created_at: Date;
 
   constructor(){
     if(!this.id){

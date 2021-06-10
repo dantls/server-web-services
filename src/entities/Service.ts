@@ -14,7 +14,7 @@ class Service {
   @JoinColumn({name: "id_order"})
   @ManyToOne(()=> Order , {
     cascade: true
-})
+  })
   order: Order;
 
   @Column()
@@ -40,11 +40,11 @@ class Service {
   @Column()
   final_date: Date;
   
-  // @UpdateDateColumn()
-  // updated_at: Date;
+  @UpdateDateColumn()
+  updated_at: Date;
 
-  // @CreateDateColumn()
-  // created_at: Date;
+  @CreateDateColumn()
+  created_at: Date;
 
   constructor(){
     if(!this.id){

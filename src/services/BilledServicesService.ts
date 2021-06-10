@@ -31,21 +31,17 @@ class BilledServicesService {
     order,
    }: IServicesCreateDTO){
       
-    // const orderAlreadyExists = await createQueryBuilder()
-    //   .select("orders")
-    //   .from(Order,"order")
-    //   .where("order.description = :order",{ order })
-
+ 
     const orderAlreadyExists = await this.ordersRepository.findOne({
       where: {
         description: order
       }
     })
 
-
     if(!orderAlreadyExists){
       throw new Error('Order is not Found')
     }
+
 
     const serviceAlreadyExists = await this.servicesRepository.findOne(
       {
@@ -55,14 +51,22 @@ class BilledServicesService {
       }
     )
 
-    serviceAlreadyExists.final_date = new Date(Date.now())
-
-    await this.servicesRepository.save(serviceAlreadyExists);
-
 
     if(!serviceAlreadyExists){
       throw new Error('Serviço não identificado.')
     }
+
+    const serviceIdentifierSituation = await this.situationsRepository.findOne({
+      where: {
+        description: 'Finalizado'
+      }
+    })
+
+
+    serviceAlreadyExists.final_date = new Date(Date.now())
+    serviceAlreadyExists.situation = serviceIdentifierSituation
+
+    await this.servicesRepository.save(serviceAlreadyExists);
 
     const serviceSituation = await this.situationsRepository.findOne({
       where: {

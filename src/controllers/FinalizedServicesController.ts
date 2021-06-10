@@ -6,7 +6,7 @@ class FinalizedServicesController {
     // const user_id = request.user.id;
 
     const {
-      description,
+      order
     } = request.body;
 
     
@@ -15,7 +15,7 @@ class FinalizedServicesController {
     try {
 
       const service = await finalizedServicesService.execute({
-        order: description
+        order
        });
 
       return response.json(service);

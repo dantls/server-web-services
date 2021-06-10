@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid'
 import { Situation } from "./Situation";
 
 
-@Entity("address")
+@Entity("addresses")
 class Address {
 
   @PrimaryColumn()
@@ -19,11 +19,11 @@ class Address {
   @Column()
   id_situation: string;
 
-  // @UpdateDateColumn()
-  // updated_at: Date;
+  @UpdateDateColumn()
+  updated_at: Date;
 
-  // @CreateDateColumn()
-  // created_at: Date;
+  @CreateDateColumn()
+  created_at: Date;
 
   constructor(){
     if(!this.id){

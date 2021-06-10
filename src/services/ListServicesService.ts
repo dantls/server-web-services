@@ -24,7 +24,7 @@ class ServicesCreateService {
           cards: [{
             id: service.id,
             content: service.order.description,
-            label: 'green'
+            label: service.situation.description === 'Faturado'? 'blue' : 'green'
           }]
         })   
       else {
@@ -32,7 +32,7 @@ class ServicesCreateService {
         obj['cards'].push({
           id: service.id,
           content: service.order.description,
-          label: 'green'
+          label: service.situation.description === 'Faturado'? 'blue' : 'green'
         })
 
       }  

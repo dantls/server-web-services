@@ -6,7 +6,7 @@ class BilledServicesController {
     // const user_id = request.user.id;
 
     const {
-      description,
+      order
     } = request.body;
 
     
@@ -15,7 +15,7 @@ class BilledServicesController {
     try {
 
       const service = await billedServicesService.execute({
-        order: description
+        order
        });
 
       return response.json(service);
