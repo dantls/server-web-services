@@ -64,7 +64,7 @@ class BilledServicesService {
 
 
     serviceAlreadyExists.final_date = new Date(Date.now())
-    serviceAlreadyExists.situation = serviceIdentifierSituation
+    // serviceAlreadyExists.situation = serviceIdentifierSituation
 
     await this.servicesRepository.save(serviceAlreadyExists);
 

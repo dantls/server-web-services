@@ -8,6 +8,7 @@ import servicesRouter from './services.routes';
 import billedServicesRouter from './billedServices.routes';
 import finalizedServicesRouter from './finalizedServices.routes';
 import servicesListRouter from './serviceslist.routes';
+import addressesListRouter from './addresseslist.routes';
 import situationsRouter from './situations.routes';
 import addressesRouter from './addresses.routes';
 
@@ -21,6 +22,7 @@ routes.use('/services', servicesRouter);
 routes.use('/billed', billedServicesRouter);
 routes.use('/finalized', finalizedServicesRouter);
 routes.use('/list-services', servicesListRouter);
+routes.use('/list-addresses', addressesListRouter);
 routes.use('/situations', situationsRouter);
 routes.use('/addresses', addressesRouter);
 
