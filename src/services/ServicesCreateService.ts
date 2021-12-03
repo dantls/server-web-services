@@ -31,13 +31,11 @@ class ServicesCreateService {
     address,
    }: IServicesCreateDTO){
 
-  
-    const serviceAlreadyExists = await this.servicesRepository.findOne({
+    const serviceAlreadyExists = await this.ordersRepository.findOne({
       where: {
-        order
+        description: order
       }
     })
-
     if(serviceAlreadyExists){
       return serviceAlreadyExists
     }
