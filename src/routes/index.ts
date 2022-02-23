@@ -11,6 +11,8 @@ import servicesListRouter from './serviceslist.routes';
 import addressesListRouter from './addresseslist.routes';
 import situationsRouter from './situations.routes';
 import addressesRouter from './addresses.routes';
+import transferServicesRouter from './transferServices.routes';
+
 
 const routes = Router();
 
@@ -25,6 +27,7 @@ routes.use('/list-services', servicesListRouter);
 routes.use('/list-addresses', addressesListRouter);
 routes.use('/situations', situationsRouter);
 routes.use('/addresses', addressesRouter);
+routes.use('/transfer', transferServicesRouter);
 
 
 export default routes;
