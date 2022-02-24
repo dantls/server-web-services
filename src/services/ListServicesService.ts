@@ -11,10 +11,10 @@ class ServicesCreateService {
   async execute(){
 
     const services = await this.servicesRepository.find({
+      relations: ["order","address","situation"],
       where: {
         final_date: IsNull()
       },
-      relations: ["order","address","situation"] 
     }) 
     
     const formmatedLists = services.reduce((acc,service) => {

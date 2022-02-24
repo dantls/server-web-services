@@ -7,6 +7,7 @@ import { Order } from "entities/Order";
 import { Service } from "entities/Service";
 import { Address } from "entities/Address";
 import { AddressRepository } from "../repositories/AddressRepository";
+import { IsNull } from "typeorm";
 
 interface IServicesTransferDTO{
   order: string;
@@ -47,7 +48,8 @@ class TransferServicesService {
     const serviceAlreadyExists = await this.servicesRepository.findOne(
       {
         where: {
-          id_order: orderAlreadyExists.id
+          id_order: orderAlreadyExists.id,
+          final_date: IsNull()
         }
       }
     )
