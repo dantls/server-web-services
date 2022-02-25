@@ -13,6 +13,7 @@ import situationsRouter from './situations.routes';
 import addressesRouter from './addresses.routes';
 import transferServicesRouter from './transferServices.routes';
 import orderTypesRouter from './orderTypes.routes';
+import addOrderTypeOrderRouter from './addOrderTypeOrder.routes';
 
 
 const routes = Router();
@@ -30,6 +31,7 @@ routes.use('/situations', situationsRouter);
 routes.use('/addresses', addressesRouter);
 routes.use('/transfer', transferServicesRouter);
 routes.use('/ordertypes', orderTypesRouter);
+routes.use('/add-ordertype', addOrderTypeOrderRouter);
 
 
 export default routes;
