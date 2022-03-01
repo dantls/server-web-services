@@ -17,7 +17,6 @@ class ServicesCreateService {
       },
     }) 
 
-
     const formmatedLists = services.reduce((acc,service) => {
       if(!(acc.find(item => item.title === service.address.description )))
         acc.push({
@@ -27,7 +26,7 @@ class ServicesCreateService {
             content: service.order.description,
             label: service.situation.description === 'Faturado'? 'blue' : 'green',
             order_create: service.order.created_at,
-            order_type: service.order.ordertypes.description,
+            order_type: service.order?.ordertypes?.description,
           }]
         })   
       else {
@@ -37,7 +36,7 @@ class ServicesCreateService {
           content: service.order.description,
           label: service.situation.description === 'Faturado'? 'blue' : 'green',
           order_create: service.order.created_at,
-          order_type: service.order.ordertypes.description,
+          order_type: service.order?.ordertypes?.description ,
         })
 
       }  
