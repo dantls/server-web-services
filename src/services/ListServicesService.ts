@@ -54,23 +54,23 @@ class ServicesCreateService {
     client.release();
 
     const formmatedLists = rows.reduce((acc,service) => {
-      if(!(acc.find(item => item.address === service.address )))
+      if(!(acc.find(item => item.title === service.address )))
         acc.push({
           title: service.address,
           cards: [{
             id: service.id,
             content: service.order,
-            label: service.situation === 'Faturado'? 'blue' : 'green',
+            label: (service.situation === 'Faturado' )? 'blue' : (service.situation === 'Iniciado' )? 'green': 'red',
             order_created: service.created_at,
             order_type: service.ordertype,
           }]
         })   
       else {
-        const obj = acc.find(item => item.address === service.address)
+        const obj = acc.find(item => item.title === service.address)
         obj['cards'].push({
           id: service.id,
           content: service.order,
-          label: service.situation === 'Faturado'? 'blue' : 'green',
+          label: (service.situation === 'Faturado' )? 'blue' : (service.situation === 'Iniciado' )? 'green': 'red',
           order_created: service.created_at,
           order_type: service.ordertype,
         })
@@ -108,16 +108,16 @@ class ServicesCreateService {
     // },[]);
     
 
-    (function orderListByOrderCreate(array: any){
-      array.reduce((acc:any, item:any) => {
-        item.cards.sort(function(a: any, b:any) {
-            let x:any = new Date(a.order_create),
-                y:any = new Date(b.order_create);
-            return x - y;
-        });
-      },[]
-      )
-    })(formmatedLists);
+    // (function orderListByOrderCreate(array: any){
+    //   array.reduce((acc:any, item:any) => {
+    //     item.cards.sort(function(a: any, b:any) {
+    //         let x:any = new Date(a.order_create),
+    //             y:any = new Date(b.order_create);
+    //         return x - y;
+    //     });
+    //   },[]
+    //   )
+    // })(formmatedLists);
 
      return formmatedLists;
     //return rows

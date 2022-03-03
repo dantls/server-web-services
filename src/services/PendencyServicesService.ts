@@ -1,4 +1,4 @@
-import { createQueryBuilder, getCustomRepository, IsNull, Not, Repository } from "typeorm";
+import { getCustomRepository, IsNull, Repository } from "typeorm";
 import { ServicesRepository } from "../repositories/ServicesRepository";
 import { SituationsRepository } from "../repositories/SituationsRepository";
 import { OrdersRepository } from "../repositories/OrdersRepository";
@@ -12,7 +12,7 @@ interface IServicesCreateDTO{
   order: string;
 }
 
-class BilledServicesService {
+class PendencyServicesService {
   private servicesRepository: Repository<Service>
   private ordersRepository: Repository<Order>
   private situationsRepository: Repository<Situation>
@@ -39,7 +39,7 @@ class BilledServicesService {
     })
 
     if(!orderAlreadyExists){
-      throw new Error('Order is not Found');
+      throw new Error('Order is not Found')
     }
 
 
@@ -53,7 +53,7 @@ class BilledServicesService {
 
 
     if(!serviceAlreadyExists){
-      throw new Error('Serviço não identificado.');
+      throw new Error('Serviço não identificado.')
     }
 
     // const serviceFinalizedSituation = await this.situationsRepository.findOne({
@@ -62,9 +62,6 @@ class BilledServicesService {
     //   }
     // })
     // serviceAlreadyExists.situation = serviceIdentifierSituation
-
-
-
 
 
     const serviceBilledSituation = await this.situationsRepository.findOne({
@@ -87,31 +84,8 @@ class BilledServicesService {
       return billedService
     }
 
-    const serviceStartedSituation = await this.situationsRepository.findOne({
-      where: {
-        description: 'Iniciado'
-      }
-    })
-
-    const startedService = await this.servicesRepository.findOne(
-      {
-        where: {
-          id_order: orderAlreadyExists.id,
-          final_date: IsNull(),
-          id_situation: serviceStartedSituation.id
-        }
-      }
-    )
-    if(startedService){
-      startedService.final_date = new Date(Date.now())
-      await this.servicesRepository.save(startedService);
-
-    }
-
-
-
-    // serviceAlreadyExists.final_date = new Date(Date.now())
-    // await this.servicesRepository.save(serviceAlreadyExists);
+    serviceAlreadyExists.final_date = new Date(Date.now())
+    await this.servicesRepository.save(serviceAlreadyExists);
 
 
     const servicePendencySituation = await this.situationsRepository.findOne({
@@ -129,13 +103,11 @@ class BilledServicesService {
         }
       }
     )
-    if(pendencyService){
-      pendencyService.final_date = new Date(Date.now())
-      await this.servicesRepository.save(pendencyService);
 
+    if(pendencyService){
+      return pendencyService
     }
 
- 
 
     const serviceAddress = await this.addressRepository.findOne({
       where: {
@@ -144,7 +116,7 @@ class BilledServicesService {
     })
 
     const service = this.servicesRepository.create({
-      situation:serviceBilledSituation ,
+      situation: servicePendencySituation ,
       order: orderAlreadyExists,
       initial_date: new Date(Date.now()),
       address: serviceAddress
@@ -159,4 +131,4 @@ class BilledServicesService {
 
 }
 
-export default BilledServicesService 
+export default PendencyServicesService 
