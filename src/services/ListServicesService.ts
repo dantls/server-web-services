@@ -108,16 +108,16 @@ class ServicesCreateService {
     // },[]);
     
 
-    // (function orderListByOrderCreate(array: any){
-    //   array.reduce((acc:any, item:any) => {
-    //     item.cards.sort(function(a: any, b:any) {
-    //         let x:any = new Date(a.order_create),
-    //             y:any = new Date(b.order_create);
-    //         return x - y;
-    //     });
-    //   },[]
-    //   )
-    // })(formmatedLists);
+    (function orderListByOrderCreate(array: any){
+      array.reduce((acc:any, item:any) => {
+        item.cards.sort(function(a: any, b:any) {
+            let x:any = new Date(a.order_created),
+                y:any = new Date(b.order_created);
+            return x - y;
+        });
+      },[]
+      )
+    })(formmatedLists);
 
      return formmatedLists;
     //return rows
