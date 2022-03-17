@@ -7,10 +7,13 @@ import { Situation } from "entities/Situation";
 import { Order } from "entities/Order";
 import { Address } from "entities/Address";
 import { Service } from "entities/Service";
+import { User } from "entities/User";
+import { UsersRepository } from "../repositories/UsersRepository";
 
 interface IServicesCreateDTO{
   order: string;
   address: string;
+  user: string;
 }
 
 class ServicesCreateService {
@@ -18,16 +21,19 @@ class ServicesCreateService {
   private ordersRepository: Repository<Order>
   private situationsRepository: Repository<Situation>
   private addressRepository: Repository<Address>
+  private usersRepository: Repository<User>
 
   constructor(){
     this.servicesRepository = getCustomRepository(ServicesRepository);
     this.ordersRepository = getCustomRepository(OrdersRepository);
     this.situationsRepository = getCustomRepository(SituationsRepository);
     this.addressRepository = getCustomRepository(AddressRepository);
+    this.usersRepository = getCustomRepository(UsersRepository);
   }
 
   async create({
     order,
+    user,
     address,
    }: IServicesCreateDTO){
 
@@ -58,11 +64,15 @@ class ServicesCreateService {
       }
     })
 
+    const serviceUser = await this.usersRepository.findOne(user);
+     
+
     const service = this.servicesRepository.create({
-      situation:serviceSituation ,
+      situation:serviceSituation,
       order: newOrder,
       initial_date: new Date(Date.now()),
-      address: serviceAddress
+      address: serviceAddress,
+      user: serviceUser
     });
     
 

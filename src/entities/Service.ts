@@ -3,6 +3,7 @@ import { v4 as uuid } from 'uuid'
 import { Address } from "./Address";
 import { Order } from "./Order";
 import { Situation } from "./Situation";
+import { User } from "./User";
 
 
 @Entity("services")
@@ -30,6 +31,14 @@ class Service {
   @JoinColumn({name: "id_situation"})
   @ManyToOne(()=> Situation)
   situation: Situation;
+
+  @Column()
+  id_user: string;
+
+  
+  @JoinColumn({name: "id_user"})
+  @ManyToOne(()=> User)
+  user: User;
 
   @Column()
   id_situation: string;

@@ -8,6 +8,7 @@ class ServicesController {
     const {
       order,
       address,
+      user
     } = request.body;
     
     const servicesService = new ServicesService();
@@ -16,7 +17,8 @@ class ServicesController {
 
       const service = await servicesService.create({
         order,
-        address
+        address,
+        user
        });
 
       return response.json(service);
