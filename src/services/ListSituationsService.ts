@@ -16,9 +16,6 @@ class ListSituationsService {
       },
     })    
       
-
-
- 
     return situations;
 
   }

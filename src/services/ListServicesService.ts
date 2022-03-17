@@ -12,7 +12,7 @@ type Row = {
   created_at: Date;
 }
 
-class ServicesCreateService {
+class ListServicesService {
   // private servicesRepository: Repository<Service>
   // constructor(){
   //   this.servicesRepository = getCustomRepository(ServicesRepository);
@@ -125,4 +125,4 @@ class ServicesCreateService {
 
 }
 
-export default ServicesCreateService 
+export default ListServicesService 
