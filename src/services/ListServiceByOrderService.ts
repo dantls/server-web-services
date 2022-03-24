@@ -6,6 +6,7 @@ type Row = {
   situation: string;
   ordertype: string;
   order: string;
+  username: string;
   initial_date: Date;
   final_date: Date;
 }
@@ -27,6 +28,7 @@ class ListServiceByOrderService {
       s.final_date as final_date,
       a.description as address , 
       s2.description as situation,
+      u.name as username,
       o2.description as ordertype 
       from services as s
         left join orders o  
@@ -37,6 +39,8 @@ class ListServiceByOrderService {
           on s2.id = s.id_situation		
         left join ordertypes o2 
           on o2.id = o.id_type 
+        left join users u
+          on s.id_user = u.id
       where o.description = $1
       order by final_date asc`;
          

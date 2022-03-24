@@ -15,11 +15,15 @@ class ServicesController {
 
     try {
 
+      if ((!order) || (!address) || (!user)){
+        throw new Error();
+      }
+
       const service = await servicesService.create({
         order,
         address,
         user
-       });
+      });
 
       return response.json(service);
 

@@ -8,7 +8,7 @@ const ListServiceRouter = Router();
 
 const listServiceByOrderController = new ListServiceByOrderController();
 
-ListServiceRouter.get("/", listServiceByOrderController.index )
+ListServiceRouter.get("/:order", listServiceByOrderController.index )
 
 export default ListServiceRouter
 

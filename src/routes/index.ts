@@ -28,7 +28,7 @@ routes.use('/services', servicesRouter);
 routes.use('/billed', billedServicesRouter);
 routes.use('/finalized', finalizedServicesRouter);
 routes.use('/list-services', servicesListRouter);
-routes.use('/list-service', listServiceByOrderRouter);
+routes.use('/list-service/', listServiceByOrderRouter);
 routes.use('/list-addresses', addressesListRouter);
 routes.use('/situations', situationsRouter);
 routes.use('/addresses', addressesRouter);

@@ -4,19 +4,13 @@ import ListServiceByOrderService from "../services/ListServiceByOrderService";
 
 class ListServiceByOrderController {
    async index(request: Request,response: Response): Promise<Response> {
-     // const user_id = request.user.id;
-    let param;
-
-    if (request.query && request.query.order){
-      param = (request.query as any).order; 
-    }
-
+    
  
     const listServiceByOrderService = new ListServiceByOrderService();
 
     try {
 
-      const services = await listServiceByOrderService.execute({order:param});
+      const services = await listServiceByOrderService.execute({order:request.params.order});
 
       return response.json(services);
 

@@ -37,6 +37,16 @@ class ServicesCreateService {
     address,
    }: IServicesCreateDTO){
 
+    const userExists = await this.usersRepository.findOne({
+      where: {
+        id: user
+      }
+    })
+
+    if(!userExists){
+      throw new Error('User is not Found.');
+    }
+
     const serviceAlreadyExists = await this.ordersRepository.findOne({
       where: {
         description: order
@@ -64,15 +74,13 @@ class ServicesCreateService {
       }
     })
 
-    const serviceUser = await this.usersRepository.findOne(user);
-     
 
     const service = this.servicesRepository.create({
       situation:serviceSituation,
       order: newOrder,
       initial_date: new Date(Date.now()),
       address: serviceAddress,
-      user: serviceUser
+      user: userExists
     });
     
 

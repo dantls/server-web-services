@@ -7,9 +7,13 @@ import { Order } from "entities/Order";
 import { Service } from "entities/Service";
 import { Address } from "entities/Address";
 import { AddressRepository } from "../repositories/AddressRepository";
+import { User } from "entities/User";
+import { UsersRepository } from "../repositories/UsersRepository";
 
 interface IServicesCreateDTO{
   order: string;
+  user: string;
+
 }
 
 class PendencyServicesService {
@@ -17,6 +21,7 @@ class PendencyServicesService {
   private ordersRepository: Repository<Order>
   private situationsRepository: Repository<Situation>
   private addressRepository: Repository<Address>
+  private usersRepository: Repository<User>
 
 
   constructor(){
@@ -24,13 +29,25 @@ class PendencyServicesService {
     this.ordersRepository = getCustomRepository(OrdersRepository);
     this.situationsRepository = getCustomRepository(SituationsRepository);
     this.addressRepository = getCustomRepository(AddressRepository);
+    this.usersRepository = getCustomRepository(UsersRepository);
     
   }
 
   async execute({
     order,
+    user
    }: IServicesCreateDTO){
       
+
+    const userExists = await this.usersRepository.findOne({
+      where: {
+        id: user
+      }
+    })
+
+    if(!userExists){
+      throw new Error('User is not Found.');
+    }
  
     const orderAlreadyExists = await this.ordersRepository.findOne({
       where: {
@@ -119,7 +136,8 @@ class PendencyServicesService {
       situation: servicePendencySituation ,
       order: orderAlreadyExists,
       initial_date: new Date(Date.now()),
-      address: serviceAddress
+      address: serviceAddress,
+      user: userExists
     });
     
     await this.servicesRepository.save(service);
