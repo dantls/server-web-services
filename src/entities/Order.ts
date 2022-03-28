@@ -1,16 +1,17 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, UpdateDateColumn,Unique } from "typeorm";
 import { v4 as uuid } from 'uuid'
 // import { Service } from "./Service";
 import { Situation } from "./Situation";
 import { OrderTypes } from "./OrderTypes";
 
-
+@Unique(["description"])
 @Entity("orders")
 class Order {
 
   @PrimaryColumn()
   id: string;
 
+ 
   @Column()
   description: string; 
 

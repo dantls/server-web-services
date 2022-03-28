@@ -47,13 +47,14 @@ class ServicesCreateService {
       throw new Error('User is not Found.');
     }
 
-    const serviceAlreadyExists = await this.ordersRepository.findOne({
+    const orderAlreadyExists = await this.ordersRepository.findOne({
       where: {
         description: order
       }
     })
-    if(serviceAlreadyExists){
-      return serviceAlreadyExists
+
+    if(orderAlreadyExists){
+      return orderAlreadyExists
     }
 
     const serviceSituation = await this.situationsRepository.findOne({
@@ -74,6 +75,16 @@ class ServicesCreateService {
       }
     })
 
+    const serviceAlreadyExists = await this.servicesRepository.findOne({
+      where: {
+        order: order,
+        situation: serviceSituation
+      }
+    })
+  
+    if(serviceAlreadyExists){
+      return serviceAlreadyExists
+    }
 
     const service = this.servicesRepository.create({
       situation:serviceSituation,

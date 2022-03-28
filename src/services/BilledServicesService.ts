@@ -70,7 +70,7 @@ class BilledServicesService {
 
 
     if(!serviceAlreadyExists){
-      throw new Error('Serviço não identificado.');
+      throw new Error('Service is not Found');
     }
 
     // const serviceFinalizedSituation = await this.situationsRepository.findOne({
@@ -79,10 +79,6 @@ class BilledServicesService {
     //   }
     // })
     // serviceAlreadyExists.situation = serviceIdentifierSituation
-
-
-
-
 
     const serviceBilledSituation = await this.situationsRepository.findOne({
       where: {
@@ -101,7 +97,7 @@ class BilledServicesService {
     )
 
     if(billedService){
-      return billedService
+       throw new Error('Service already exists.');
     }
 
     const serviceStartedSituation = await this.situationsRepository.findOne({
