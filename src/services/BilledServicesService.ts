@@ -80,25 +80,7 @@ class BilledServicesService {
     // })
     // serviceAlreadyExists.situation = serviceIdentifierSituation
 
-    const serviceBilledSituation = await this.situationsRepository.findOne({
-      where: {
-        description: 'Faturado'
-      }
-    })
-
-    const billedService = await this.servicesRepository.findOne(
-      {
-        where: {
-          id_order: orderAlreadyExists.id,
-          final_date: IsNull(),
-          id_situation: serviceBilledSituation.id
-        }
-      }
-    )
-
-    if(billedService){
-       throw new Error('Service already exists.');
-    }
+   
 
     const serviceStartedSituation = await this.situationsRepository.findOne({
       where: {
@@ -121,7 +103,25 @@ class BilledServicesService {
 
     }
 
+    const serviceBilledSituation = await this.situationsRepository.findOne({
+      where: {
+        description: 'Faturado'
+      }
+    })
 
+    const billedService = await this.servicesRepository.findOne(
+      {
+        where: {
+          id_order: orderAlreadyExists.id,
+          final_date: IsNull(),
+          id_situation: serviceBilledSituation.id
+        }
+      }
+    )
+
+    if(billedService){
+       throw new Error('Service already exists.');
+    }
 
     // serviceAlreadyExists.final_date = new Date(Date.now())
     // await this.servicesRepository.save(serviceAlreadyExists);
