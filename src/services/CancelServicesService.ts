@@ -1,4 +1,4 @@
-import { createQueryBuilder, getCustomRepository, In, Repository } from "typeorm";
+import { createQueryBuilder, getCustomRepository, Repository , In} from "typeorm";
 import { ServicesRepository } from "../repositories/ServicesRepository";
 import { SituationsRepository } from "../repositories/SituationsRepository";
 import { OrdersRepository } from "../repositories/OrdersRepository";
@@ -15,7 +15,7 @@ interface IServicesCreateDTO{
   user: string;
 }
 
-class FinalizedServicesService {
+class CancelServicesService {
   private servicesRepository: Repository<Service>
   private ordersRepository: Repository<Order>
   private situationsRepository: Repository<Situation>
@@ -59,25 +59,56 @@ class FinalizedServicesService {
       throw new Error('Order is not Found')
     }
 
-    const serviceSituationBilled = await this.situationsRepository.findOne({
-      where: {
-        description: 'Faturado'
-      }
-    })
     const serviceSituationCancel = await this.situationsRepository.findOne({
       where: {
         description: 'Cancelado'
       }
     })
+
+  
+    const serviceCancel = await this.servicesRepository.findOne(
+      {
+        where: {
+          id_order: orderAlreadyExists.id,
+          id_situation: serviceSituationCancel.id
+        }
+      }
+    )
+    
+    if(serviceCancel){
+      return serviceCancel
+    }
+
+
+    const serviceSituationBilled = await this.situationsRepository.findOne({
+      where: {
+        description: 'Faturado'
+      }
+    })
+    const serviceSituationInit = await this.situationsRepository.findOne({
+      where: {
+        description: 'Iniciado'
+      }
+    })
+    const serviceSituationPendency = await this.situationsRepository.findOne({
+      where: {
+        description: 'Pendência Comercial/Vendas/Financeiro'
+      }
+    })
+
     const serviceAlreadyExists = await this.servicesRepository.findOne(
       {
         where: {
           id_order: orderAlreadyExists.id,
-          id_situation: In([serviceSituationBilled.id, serviceSituationCancel.id])
+
+          id_situation: In([
+            serviceSituationBilled.id,
+            serviceSituationPendency.id,
+            serviceSituationInit.id
+          ])
         }
       }
     )
-
     
     if(!serviceAlreadyExists){
       throw new Error('Serviço não identificado.')
@@ -90,7 +121,7 @@ class FinalizedServicesService {
 
     const serviceSituation = await this.situationsRepository.findOne({
       where: {
-        description: 'Finalizado'
+        description: 'Cancelado'
       }
     })
 
@@ -98,16 +129,14 @@ class FinalizedServicesService {
       where: {
         id: serviceAlreadyExists.id_address
       }
-    })
+    });
 
     const service = this.servicesRepository.create({
       situation:serviceSituation ,
       order: orderAlreadyExists,
       initial_date: new Date(Date.now()),
-      final_date: new Date(Date.now()),
       address: serviceAddress,
       user: userExists
-
     });
     
 
@@ -120,4 +149,4 @@ class FinalizedServicesService {
 
 }
 
-export default FinalizedServicesService 
+export default CancelServicesService 

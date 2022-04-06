@@ -16,7 +16,8 @@ export class CreateFNAndTG1649275742060 implements MigrationInterface {
                 from services s 
                 where id_order = new.id_order 
                 and initial_date is not null 
-                and final_date is null;
+                and final_date is null
+                and id_situation = new.id_situation;
                 
                 exist = found;
             

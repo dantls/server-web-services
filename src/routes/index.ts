@@ -16,6 +16,7 @@ import transferServicesRouter from './transferServices.routes';
 import orderTypesRouter from './orderTypes.routes';
 import addOrderTypeOrderRouter from './addOrderTypeOrder.routes';
 import pendencyRouter from './pendencyServices.routes';
+import cancelRouter from './cancelServices.routes';
 
 
 const routes = Router();
@@ -36,6 +37,7 @@ routes.use('/transfer', transferServicesRouter);
 routes.use('/ordertypes', orderTypesRouter);
 routes.use('/add-ordertype', addOrderTypeOrderRouter);
 routes.use('/pendency', pendencyRouter);
+routes.use('/cancel', cancelRouter);
 
 
 export default routes;

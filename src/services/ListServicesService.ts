@@ -60,7 +60,10 @@ class ListServicesService {
           cards: [{
             id: service.id,
             content: service.order,
-            label: (service.situation === 'Faturado' )? 'blue' : (service.situation === 'Iniciado' )? 'green': 'red',
+            label: (service.situation === 'Faturado' ) ? 'blue' 
+            : (service.situation === 'Iniciado' ) ? 'green'
+            : (service.situation === 'Cancelado' ) ? 'gray'
+            : 'red',
             order_created: service.created_at,
             order_type: service.ordertype,
           }]
@@ -70,7 +73,10 @@ class ListServicesService {
         obj['cards'].push({
           id: service.id,
           content: service.order,
-          label: (service.situation === 'Faturado' )? 'blue' : (service.situation === 'Iniciado' )? 'green': 'red',
+          label: (service.situation === 'Faturado' ) ? 'blue' 
+          : (service.situation === 'Iniciado' ) ? 'green'
+          : (service.situation === 'Cancelado' ) ? 'gray'
+          : 'red',
           order_created: service.created_at,
           order_type: service.ordertype,
         })
