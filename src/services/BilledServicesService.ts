@@ -60,18 +60,7 @@ class BilledServicesService {
     }
 
 
-    const serviceAlreadyExists = await this.servicesRepository.findOne(
-      {
-        where: {
-          id_order: orderAlreadyExists.id
-        }
-      }
-    )
-
-
-    if(!serviceAlreadyExists){
-      throw new Error('Service is not Found');
-    }
+  
 
     // const serviceFinalizedSituation = await this.situationsRepository.findOne({
     //   where: {
@@ -97,30 +86,11 @@ class BilledServicesService {
         }
       }
     )
+
     if(startedService){
       startedService.final_date = new Date(Date.now())
       await this.servicesRepository.save(startedService);
 
-    }
-
-    const serviceBilledSituation = await this.situationsRepository.findOne({
-      where: {
-        description: 'Faturado'
-      }
-    })
-
-    const billedService = await this.servicesRepository.findOne(
-      {
-        where: {
-          id_order: orderAlreadyExists.id,
-          final_date: IsNull(),
-          id_situation: serviceBilledSituation.id
-        }
-      }
-    )
-
-    if(billedService){
-       throw new Error('Service already exists.');
     }
 
     // serviceAlreadyExists.final_date = new Date(Date.now())
@@ -147,8 +117,25 @@ class BilledServicesService {
       await this.servicesRepository.save(pendencyService);
 
     }
+    const serviceBilledSituation = await this.situationsRepository.findOne({
+      where: {
+        description: 'Faturado'
+      }
+    })
 
- 
+    const serviceAlreadyExists = await this.servicesRepository.findOne(
+      {
+        where: {
+          id_order: orderAlreadyExists.id
+        }
+      }
+    )
+
+
+    if(!serviceAlreadyExists){
+      throw new Error('Service is not Found');
+    }
+
 
     const serviceAddress = await this.addressRepository.findOne({
       where: {
@@ -157,12 +144,27 @@ class BilledServicesService {
     })
 
     const service = this.servicesRepository.create({
-      situation:serviceBilledSituation ,
+      situation: serviceBilledSituation,
       order: orderAlreadyExists,
       initial_date: new Date(Date.now()),
       address: serviceAddress,
       user: userExists
     });
+
+    const billedService = await this.servicesRepository.findOne(
+      {
+        where: {
+          order: orderAlreadyExists,
+          initial_date: Not(IsNull()),  
+          final_date: IsNull(),
+          situation: serviceBilledSituation
+        }
+      }
+    )
+
+    if(billedService){
+       throw new Error('Service already exists.');
+    }
     
     await this.servicesRepository.save(service);
 
