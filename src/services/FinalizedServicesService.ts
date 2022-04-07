@@ -1,4 +1,4 @@
-import { createQueryBuilder, getCustomRepository, In, Repository } from "typeorm";
+import {  getCustomRepository, In, IsNull, Repository } from "typeorm";
 import { ServicesRepository } from "../repositories/ServicesRepository";
 import { SituationsRepository } from "../repositories/SituationsRepository";
 import { OrdersRepository } from "../repositories/OrdersRepository";
@@ -73,7 +73,8 @@ class FinalizedServicesService {
       {
         where: {
           id_order: orderAlreadyExists.id,
-          id_situation: In([serviceSituationBilled.id, serviceSituationCancel.id])
+          id_situation: In([serviceSituationBilled.id, serviceSituationCancel.id]),
+          final_date: IsNull()
         }
       }
     )

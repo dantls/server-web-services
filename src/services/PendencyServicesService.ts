@@ -101,6 +101,32 @@ class PendencyServicesService {
       return billedService
     }
 
+    const serviceCancelSituation = await this.situationsRepository.findOne({
+      where: {
+        description: 'Cancelado'
+      }
+    })
+
+    const cancelService = await this.servicesRepository.findOne(
+      {
+        where: {
+          id_order: orderAlreadyExists.id,
+          final_date: IsNull(),
+          id_situation: serviceCancelSituation.id
+        }
+      }
+    )
+
+    if(cancelService){
+      return cancelService
+    }
+
+
+
+
+
+
+
     serviceAlreadyExists.final_date = new Date(Date.now())
     await this.servicesRepository.save(serviceAlreadyExists);
 

@@ -1,4 +1,4 @@
-import { createQueryBuilder, getCustomRepository, Repository , In} from "typeorm";
+import { createQueryBuilder, getCustomRepository, Repository , In, IsNull} from "typeorm";
 import { ServicesRepository } from "../repositories/ServicesRepository";
 import { SituationsRepository } from "../repositories/SituationsRepository";
 import { OrdersRepository } from "../repositories/OrdersRepository";
@@ -100,7 +100,7 @@ class CancelServicesService {
       {
         where: {
           id_order: orderAlreadyExists.id,
-
+          final_date: IsNull(),
           id_situation: In([
             serviceSituationBilled.id,
             serviceSituationPendency.id,
@@ -114,8 +114,7 @@ class CancelServicesService {
       throw new Error('Serviço não identificado.')
     }
 
-    serviceAlreadyExists.final_date = new Date(Date.now())
-
+    serviceAlreadyExists.final_date = new Date(Date.now());
     await this.servicesRepository.save(serviceAlreadyExists);
 
 

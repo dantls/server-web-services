@@ -136,6 +136,25 @@ class BilledServicesService {
       throw new Error('Service is not Found');
     }
 
+    const serviceCancelSituation = await this.situationsRepository.findOne({
+      where: {
+        description: 'Cancelado'
+      }
+    })
+
+    const cancelService = await this.servicesRepository.findOne(
+      {
+        where: {
+          id_order: orderAlreadyExists.id,
+          final_date: IsNull(),
+          id_situation: serviceCancelSituation.id
+        }
+      }
+    )
+
+    if(cancelService){
+      return cancelService
+    }
 
     const serviceAddress = await this.addressRepository.findOne({
       where: {
