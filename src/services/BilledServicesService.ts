@@ -1,4 +1,4 @@
-import { createQueryBuilder, getCustomRepository, IsNull, Not, Repository } from "typeorm";
+import { createQueryBuilder, getCustomRepository, In, IsNull, Not, Repository } from "typeorm";
 import { ServicesRepository } from "../repositories/ServicesRepository";
 import { SituationsRepository } from "../repositories/SituationsRepository";
 import { OrdersRepository } from "../repositories/OrdersRepository";
@@ -77,46 +77,54 @@ class BilledServicesService {
       }
     })
 
-    const startedService = await this.servicesRepository.findOne(
-      {
-        where: {
-          id_order: orderAlreadyExists.id,
-          final_date: IsNull(),
-          id_situation: serviceStartedSituation.id
-        }
-      }
-    )
-
-    if(startedService){
-      startedService.final_date = new Date(Date.now())
-      await this.servicesRepository.save(startedService);
-
-    }
-
-    // serviceAlreadyExists.final_date = new Date(Date.now())
-    // await this.servicesRepository.save(serviceAlreadyExists);
-
-
     const servicePendencySituation = await this.situationsRepository.findOne({
       where: {
         description: 'Pendência Comercial/Vendas/Financeiro'
       }
     })
 
-    const pendencyService = await this.servicesRepository.findOne(
+    const startedORpendencyService = await this.servicesRepository.findOne(
       {
         where: {
           id_order: orderAlreadyExists.id,
           final_date: IsNull(),
-          id_situation: servicePendencySituation.id
+          id_situation: In([serviceStartedSituation.id, servicePendencySituation.id])
         }
       }
     )
-    if(pendencyService){
-      pendencyService.final_date = new Date(Date.now())
-      await this.servicesRepository.save(pendencyService);
+
+    if(startedORpendencyService){
+      startedORpendencyService.final_date = new Date(Date.now())
+      await this.servicesRepository.save(startedORpendencyService);
 
     }
+
+    // if(pendencyService){
+    //   pendencyService.final_date = new Date(Date.now())
+    //   await this.servicesRepository.save(pendencyService);
+
+    // }
+
+    // serviceAlreadyExists.final_date = new Date(Date.now())
+    // await this.servicesRepository.save(serviceAlreadyExists);
+
+
+    // const servicePendencySituation = await this.situationsRepository.findOne({
+    //   where: {
+    //     description: 'Pendência Comercial/Vendas/Financeiro'
+    //   }
+    // })
+
+    // const pendencyService = await this.servicesRepository.findOne(
+    //   {
+    //     where: {
+    //       id_order: orderAlreadyExists.id,
+    //       final_date: IsNull(),
+    //       id_situation: servicePendencySituation.id
+    //     }
+    //   }
+    // )
+   
     const serviceBilledSituation = await this.situationsRepository.findOne({
       where: {
         description: 'Faturado'
@@ -126,7 +134,7 @@ class BilledServicesService {
     const serviceAlreadyExists = await this.servicesRepository.findOne(
       {
         where: {
-          id_order: orderAlreadyExists.id
+          id_order: startedORpendencyService.id_order
         }
       }
     )
@@ -158,7 +166,7 @@ class BilledServicesService {
 
     const serviceAddress = await this.addressRepository.findOne({
       where: {
-        id: serviceAlreadyExists.id_address
+        id: startedORpendencyService.id_address
       }
     })
 
