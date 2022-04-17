@@ -7,6 +7,8 @@ import { Order } from "entities/Order";
 import { Service } from "entities/Service";
 import { Address } from "entities/Address";
 import { AddressRepository } from "../repositories/AddressRepository";
+import { FinalAddress } from "../entities/FinalAddress";
+import { FinalAddressRepository } from "../repositories/FinalAddressRepository";
 import { User } from "entities/User";
 import { UsersRepository } from "../repositories/UsersRepository";
 
@@ -20,6 +22,7 @@ class FinalizedServicesService {
   private ordersRepository: Repository<Order>
   private situationsRepository: Repository<Situation>
   private addressRepository: Repository<Address>
+  private finalAddressRepository: Repository<FinalAddress>
   private usersRepository: Repository<User>
 
 
@@ -30,6 +33,8 @@ class FinalizedServicesService {
     this.situationsRepository = getCustomRepository(SituationsRepository);
     this.addressRepository = getCustomRepository(AddressRepository);
     this.usersRepository = getCustomRepository(UsersRepository);
+    this.finalAddressRepository = getCustomRepository(FinalAddressRepository);
+
   }
 
   async execute({
@@ -101,12 +106,19 @@ class FinalizedServicesService {
       }
     })
 
+    const serviceFinalAddress = await this.finalAddressRepository.findOne({
+      where: {
+        id: serviceAlreadyExists.id_final_addresses
+      }
+    })
+
     const service = this.servicesRepository.create({
       situation:serviceSituation ,
       order: orderAlreadyExists,
       initial_date: new Date(Date.now()),
       final_date: new Date(Date.now()),
       address: serviceAddress,
+      final_address: serviceFinalAddress,
       user: userExists
 
     });

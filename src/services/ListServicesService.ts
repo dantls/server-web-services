@@ -8,6 +8,7 @@ type Row = {
   address: string;
   situation: string;
   ordertype: string;
+  final_address: string;
   order: string;
   created_at: Date;
 }
@@ -35,7 +36,8 @@ class ListServicesService {
        o.created_at as created_at,
        a.description as address , 
        s2.description as situation,
-       o2.description as ordertype 
+       o2.description as ordertype,
+       fa.description as final_address
       from services as s
         left join orders o  
           on o.id = s.id_order
@@ -44,7 +46,9 @@ class ListServicesService {
         left join situations s2 
           on s2.id = s.id_situation		
         left join ordertypes o2 
-          on o2.id = o.id_type 
+          on o2.id = o.id_type
+        left join final_addresses fa 
+          on fa.id = s.id_final_addresses 
       where s.final_date isnull`;
     
 
@@ -66,6 +70,7 @@ class ListServicesService {
             : 'red',
             order_created: service.created_at,
             order_type: service.ordertype,
+            final_address: service.final_address
           }]
         })   
       else {
@@ -79,6 +84,7 @@ class ListServicesService {
           : 'red',
           order_created: service.created_at,
           order_type: service.ordertype,
+          final_address: service.final_address
         })
 
       }  

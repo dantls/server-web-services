@@ -6,7 +6,9 @@ import { Situation } from "entities/Situation";
 import { Order } from "entities/Order";
 import { Service } from "entities/Service";
 import { Address } from "entities/Address";
+import { FinalAddress } from "entities/FinalAddress";
 import { AddressRepository } from "../repositories/AddressRepository";
+import { FinalAddressRepository } from "../repositories/FinalAddressRepository";
 import { User } from "entities/User";
 import { UsersRepository } from "../repositories/UsersRepository";
 
@@ -20,6 +22,7 @@ class BilledServicesService {
   private ordersRepository: Repository<Order>
   private situationsRepository: Repository<Situation>
   private addressRepository: Repository<Address>
+  private finalAddressRepository: Repository<FinalAddress>
   private usersRepository: Repository<User>
 
 
@@ -29,6 +32,7 @@ class BilledServicesService {
     this.ordersRepository = getCustomRepository(OrdersRepository);
     this.situationsRepository = getCustomRepository(SituationsRepository);
     this.addressRepository = getCustomRepository(AddressRepository);
+    this.finalAddressRepository = getCustomRepository(FinalAddressRepository);
     this.usersRepository = getCustomRepository(UsersRepository);
 
   }
@@ -170,11 +174,18 @@ class BilledServicesService {
       }
     })
 
+    const serviceFinalAddress = await this.finalAddressRepository.findOne({
+      where: {
+        id: startedORpendencyService.id_final_addresses
+      }
+    })
+
     const service = this.servicesRepository.create({
       situation: serviceBilledSituation,
       order: orderAlreadyExists,
       initial_date: new Date(Date.now()),
       address: serviceAddress,
+      final_address: serviceFinalAddress,
       user: userExists
     });
 

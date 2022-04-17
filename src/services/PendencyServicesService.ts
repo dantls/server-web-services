@@ -9,6 +9,8 @@ import { Address } from "entities/Address";
 import { AddressRepository } from "../repositories/AddressRepository";
 import { User } from "entities/User";
 import { UsersRepository } from "../repositories/UsersRepository";
+import { FinalAddress } from "../entities/FinalAddress";
+import { FinalAddressRepository } from "../repositories/FinalAddressRepository";
 
 interface IServicesCreateDTO{
   order: string;
@@ -21,6 +23,8 @@ class PendencyServicesService {
   private ordersRepository: Repository<Order>
   private situationsRepository: Repository<Situation>
   private addressRepository: Repository<Address>
+  private finalAddressRepository: Repository<FinalAddress>
+
   private usersRepository: Repository<User>
 
 
@@ -30,6 +34,7 @@ class PendencyServicesService {
     this.situationsRepository = getCustomRepository(SituationsRepository);
     this.addressRepository = getCustomRepository(AddressRepository);
     this.usersRepository = getCustomRepository(UsersRepository);
+    this.finalAddressRepository = getCustomRepository(FinalAddressRepository);
     
   }
 
@@ -158,11 +163,18 @@ class PendencyServicesService {
       }
     })
 
+    const serviceFinalAddress = await this.finalAddressRepository.findOne({
+      where: {
+        id: serviceAlreadyExists.id_final_addresses
+      }
+    })
+
     const service = this.servicesRepository.create({
       situation: servicePendencySituation ,
       order: orderAlreadyExists,
       initial_date: new Date(Date.now()),
       address: serviceAddress,
+      final_address: serviceFinalAddress,
       user: userExists
     });
     

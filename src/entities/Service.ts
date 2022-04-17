@@ -1,6 +1,7 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { v4 as uuid } from 'uuid'
 import { Address } from "./Address";
+import { FinalAddress } from "./FinalAddress";
 import { Order } from "./Order";
 import { Situation } from "./Situation";
 import { User } from "./User";
@@ -27,6 +28,13 @@ class Service {
 
   @Column()
   id_address: string;
+
+  @JoinColumn({name: "id_final_addresses"})
+  @ManyToOne(()=> FinalAddress)
+  final_address: Address;
+
+  @Column()
+  id_final_addresses: string;
 
   @JoinColumn({name: "id_situation"})
   @ManyToOne(()=> Situation)
