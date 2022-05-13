@@ -57,7 +57,7 @@ class ListServicesService {
 
     client.release();
 
-    const formmatedLists = rows.reduce((acc,service) => {
+    let formmatedLists = rows.reduce((acc,service) => {
       if(!(acc.find(item => item.title === service.address )))
         acc.push({
           title: service.address,
@@ -90,35 +90,13 @@ class ListServicesService {
       }  
       return acc
          
-    },[]);
+    },[]).map((item:any) => {
+      return {
+        ...item,
+        'total': item.cards.length
+      }
+    });
 
-    // const formmatedLists = rows.reduce((acc,service) => {
-    //   if(!(acc.find(item => item.title === service.address.description )))
-    //     acc.push({
-    //       title: service.address.description,
-    //       cards: [{
-    //         id: service.id,
-    //         content: service.order.description,
-    //         label: service.situation.description === 'Faturado'? 'blue' : 'green',
-    //         order_create: service.order.created_at,
-    //         order_type: service.order?.ordertypes?.description,
-    //       }]
-    //     })   
-    //   else {
-    //     const obj = acc.find(item => item.title === service.address.description)
-    //     obj['cards'].push({
-    //       id: service.id,
-    //       content: service.order.description,
-    //       label: service.situation.description === 'Faturado'? 'blue' : 'green',
-    //       order_create: service.order.created_at,
-    //       order_type: service.order?.ordertypes?.description ,
-    //     })
-
-    //   }  
-    //   return acc
-         
-    // },[]);
-    
 
     (function orderListByOrderCreate(array: any){
       array.reduce((acc:any, item:any) => {
@@ -131,7 +109,9 @@ class ListServicesService {
       )
     })(formmatedLists);
 
-     return formmatedLists;
+
+
+    return formmatedLists;
     //return rows
   }
 
