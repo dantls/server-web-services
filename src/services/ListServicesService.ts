@@ -1,6 +1,6 @@
 // import { Any, getCustomRepository, IsNull, Repository } from "typeorm";
 // import { ServicesRepository } from "../repositories/ServicesRepository";
-import pool from '../database/dbconnector';
+import pool from '../database/pgconnector';
 // import { Service } from "entities/Service";
 
 type Row = {

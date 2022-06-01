@@ -21,6 +21,7 @@ import addFinalAddressesServicesController from './addFinalAddressService.routes
 import pendencyRouter from './pendencyServices.routes';
 import cancelRouter from './cancelServices.routes';
 
+import movementsRouter from './movements.routes';
 
 const routes = Router();
 
@@ -44,6 +45,7 @@ routes.use('/ordertypes', orderTypesRouter);
 routes.use('/add-ordertype', addOrderTypeOrderRouter);
 routes.use('/add-finaladdress', addFinalAddressesServicesController);
 routes.use('/pendency', pendencyRouter);
+routes.use('/movements', movementsRouter);
 routes.use('/cancel', cancelRouter);
 
 

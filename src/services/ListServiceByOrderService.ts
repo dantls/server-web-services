@@ -1,4 +1,4 @@
-import pool from '../database/dbconnector';
+import pool from '../database/pgconnector';
 
 type Row = {
   id: string;
