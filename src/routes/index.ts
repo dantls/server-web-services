@@ -22,6 +22,9 @@ import pendencyRouter from './pendencyServices.routes';
 import cancelRouter from './cancelServices.routes';
 
 import movementsRouter from './movements.routes';
+import movementsResumeRouter from './movementsResume.routes';
+import pickingsRouter from './pickings.routes';
+import pickingsResumeRouter from './pickingsResume.routes';
 
 const routes = Router();
 
@@ -46,6 +49,9 @@ routes.use('/add-ordertype', addOrderTypeOrderRouter);
 routes.use('/add-finaladdress', addFinalAddressesServicesController);
 routes.use('/pendency', pendencyRouter);
 routes.use('/movements', movementsRouter);
+routes.use('/movements-total', movementsResumeRouter);
+routes.use('/pickings', pickingsRouter);
+routes.use('/pickings-total', pickingsResumeRouter);
 routes.use('/cancel', cancelRouter);
 
 
