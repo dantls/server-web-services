@@ -47,7 +47,7 @@ class PickingsService {
                                                         ON SVC.IDCLOT = ORD.IDCLOT
                                                 INNER JOIN WMS_CADLOT LOT
                                                         ON LOT.IDCLOT = ORD.IDCLOT
-                                                INNER JOIN WMS_CADUMA UMA
+                                                LEFT JOIN WMS_CADUMA UMA
                                                         ON UMA.IDCLOTEXP = ORD.IDCLOT
                                                            AND IDCUMADST = UMA.IDCUMA
                                                  

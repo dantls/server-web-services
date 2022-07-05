@@ -13,7 +13,7 @@ type Row = {
   created_at: Date;
 }
 
-class ListServicesService {
+class ListServices2Service {
   // private servicesRepository: Repository<Service>
   // constructor(){
   //   this.servicesRepository = getCustomRepository(ServicesRepository);
@@ -49,7 +49,7 @@ class ListServicesService {
           on o2.id = o.id_type
         left join final_addresses fa 
           on fa.id = s.id_final_addresses 
-      where s.final_date isnull and a.site = '1'`;
+      where s.final_date isnull and a.site = '2'`;
     
 
      
@@ -117,4 +117,4 @@ class ListServicesService {
 
 }
 
-export default ListServicesService 
+export default ListServices2Service 

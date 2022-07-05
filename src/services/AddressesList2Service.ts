@@ -6,7 +6,7 @@ import { Address } from "entities/Address";
 import { Situation } from "entities/Situation";
 
 
-class AddressesListService {
+class AddressesList2Service {
     private addressesRepository: Repository<Address>
     private situationsRepository: Repository<Situation>
   
@@ -27,7 +27,7 @@ class AddressesListService {
     const addresses = await this.addressesRepository.find({
       where: {
         id_situation: activeSituation,
-        site: '1'
+        site: '2'
       },
     }) 
     
@@ -37,4 +37,4 @@ class AddressesListService {
 
 }
 
-export default AddressesListService 
+export default AddressesList2Service 

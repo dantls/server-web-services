@@ -4,14 +4,15 @@ import AddressesService from "../services/AddressesService";
 class AddressesController {
   async create(request: Request,response: Response): Promise<Response> {
     const {
-      description 
+      description ,
+      site
     } = request.body;
     
     const addressesService = new AddressesService();
 
     try {
 
-      const situation = await addressesService.create({ description });
+      const situation = await addressesService.create({ description, site });
 
       return response.json(situation);
 

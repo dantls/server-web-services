@@ -29,18 +29,18 @@ class PickingsResumeService {
                         ON PST.IDCPST = RELPST.IDCPST
                 LEFT JOIN SAG_CADUSR USR
                         ON USR.IDCUSR = SVC.IDCUSREXE
-         WHERE  SVC.IDCATV IN (8,20 ) AND SIT.NOMSITATV IN ('LIBERADA', 'EM EXECUCAO', 'OCORRENCIA')
+         WHERE  SVC.IDCATV IN (8,20,21 ) AND SIT.NOMSITATV IN ('LIBERADA', 'EM EXECUCAO', 'OCORRENCIA')
                 AND ( ORD.IDCLOT  IN (SELECT SVC.IDCLOT
                                          FROM   WMS_ORDSVC SVC
                                                 INNER JOIN WMS_ORDENTSAI ORD
                                                         ON SVC.IDCLOT = ORD.IDCLOT
                                                 INNER JOIN WMS_CADLOT LOT
                                                         ON LOT.IDCLOT = ORD.IDCLOT
-                                                INNER JOIN WMS_CADUMA UMA
+                                                LEFT JOIN WMS_CADUMA UMA
                                                         ON UMA.IDCLOTEXP = ORD.IDCLOT
                                                            AND IDCUMADST = UMA.IDCUMA
                                                  
-                                         WHERE  SVC.IDCATV IN (8,20)
+                                         WHERE  SVC.IDCATV IN (8,20,21)
                                                 AND LOT.IDCSITEXE = 2
                                                 AND ORD.IDCTIPORD = 5
                                                 AND IDCSITATV IN ( 2, 3, 4, 5, 7 )
