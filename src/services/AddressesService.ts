@@ -7,7 +7,7 @@ import { SituationsRepository } from "../repositories/SituationsRepository";
 
 interface IAddressCreateDTO{
   description: string;
-
+  site: string;
 }
 
 class AddressesService {
@@ -20,7 +20,7 @@ class AddressesService {
     this.situationsRepository = getCustomRepository(SituationsRepository);
   }
 
-  async create({ description}: IAddressCreateDTO){
+  async create({ description, site}: IAddressCreateDTO){
 
     const addressAlreadyExists = await this.addressesRepository.findOne({
       description
@@ -38,6 +38,7 @@ class AddressesService {
 
     const address = this.addressesRepository.create({
       description,
+      site,
       situation: addressSituation
     });
     

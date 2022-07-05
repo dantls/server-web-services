@@ -19,6 +19,9 @@ class Address {
   @Column()
   id_situation: string;
 
+  @Column()
+  site: string;
+
   @UpdateDateColumn()
   updated_at: Date;
 
