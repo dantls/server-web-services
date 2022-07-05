@@ -3,7 +3,11 @@ import { v4 as uuid } from 'uuid'
 import { Situation } from "./Situation";
 
 
-@Entity("addresses")
+@Entity("addresses", {
+  orderBy: {
+    description: "ASC",
+  }
+})
 class Address {
 
   @PrimaryColumn()

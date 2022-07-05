@@ -12,7 +12,11 @@ class AddressesController {
 
     try {
 
+<<<<<<< HEAD
       const address = await addressesService.create({ description , site });
+=======
+      const situation = await addressesService.create({ description, site });
+>>>>>>> 4d882af031014284961917c954d14107399b5409
 
       return response.json(address);
 
