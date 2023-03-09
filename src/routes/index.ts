@@ -28,8 +28,12 @@ import movementsResumeRouter from './movementsResume.routes';
 import pickingsRouter from './pickings.routes';
 import pickingsResumeRouter from './pickingsResume.routes';
 
+import checkOrderRouter from './checkOrder.routes';
+
 const routes = Router();
 
+
+routes.use('/checkOrder', checkOrderRouter);
 routes.use('/users', usersRouter);
 routes.use('/points', pointsRouter);
 routes.use('/sessions', sessionsRouter);

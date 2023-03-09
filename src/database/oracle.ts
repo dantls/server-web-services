@@ -26,8 +26,8 @@ export default class OracleDB {
     let connection: oracledb.Connection | undefined;
     let result!: any;
     try {
-      connection = await this._instance.pool.getConnection();
-      result = await connection.execute(
+      connection = await this._instance.pool?.getConnection();
+      result = await connection?.execute(
         sql,
         bindParams ? bindParams : {},
         options ? options : {}
@@ -55,8 +55,8 @@ export default class OracleDB {
     let connection: oracledb.Connection | undefined;
 
     try {
-      connection = await this._instance.pool.getConnection();
-      await connection.executeMany(sql, binds, options ? options : {});
+      connection = await this._instance.pool?.getConnection();
+      await connection?.executeMany(sql, binds, options ? options : {});
     } catch (err) {
       console.error(err);
     } finally {
