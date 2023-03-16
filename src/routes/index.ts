@@ -30,6 +30,9 @@ import pickingsResumeRouter from './pickingsResume.routes';
 
 import checkOrderRouter from './checkOrder.routes';
 
+import samplesResumeRouter from './samplesResume.routes';
+import samplesRouter from './samples.routes';
+
 const routes = Router();
 
 
@@ -61,6 +64,8 @@ routes.use('/movements-total', movementsResumeRouter);
 routes.use('/pickings', pickingsRouter);
 routes.use('/pickings-total', pickingsResumeRouter);
 routes.use('/cancel', cancelRouter);
+routes.use('/samples-total', samplesResumeRouter);
+routes.use('/samples', samplesRouter);
 
 
 export default routes;
