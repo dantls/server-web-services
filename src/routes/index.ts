@@ -25,6 +25,7 @@ import cancelRouter from './cancelServices.routes';
 
 import movementsRouter from './movements.routes';
 import movementsResumeRouter from './movementsResume.routes';
+import movementsForecastRouter from './movementsForecast.routes';
 import pickingsRouter from './pickings.routes';
 import pickingsResumeRouter from './pickingsResume.routes';
 
@@ -61,6 +62,7 @@ routes.use('/add-finaladdress', addFinalAddressesServicesController);
 routes.use('/pendency', pendencyRouter);
 routes.use('/movements', movementsRouter);
 routes.use('/movements-total', movementsResumeRouter);
+routes.use('/movements-forecast', movementsForecastRouter);
 routes.use('/pickings', pickingsRouter);
 routes.use('/pickings-total', pickingsResumeRouter);
 routes.use('/cancel', cancelRouter);
